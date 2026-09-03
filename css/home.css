@@ -1,0 +1,107 @@
+/* ==========================================================================
+   Главная страница — список тренажёров.
+   Палитра и шрифт совпадают со стилями тренажёров (см. multiplier/css/style.css).
+   ========================================================================== */
+
+:root {
+  --font: "Comic Sans MS", "Chalkboard SE", "Comic Neue", "Trebuchet MS",
+    "Segoe UI", system-ui, sans-serif;
+
+  --bg-1: #7ee8fa;
+  --bg-2: #eec0c6;
+  --card: #ffffff;
+  --ink: #26324d;
+  --ink-soft: #5b6a90;
+
+  --yellow-dark: #e0a800;
+
+  --radius: 24px;
+  --shadow: 0 10px 0 rgba(38, 50, 77, 0.15);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--ink);
+  background: linear-gradient(160deg, var(--bg-1), var(--bg-2));
+  background-attachment: fixed;
+  padding: 20px 16px 60px;
+  -webkit-text-size-adjust: 100%;
+}
+
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: clamp(30px, 6vw, 52px);
+  text-align: center;
+  margin: 10px 0 6px;
+  color: #fff;
+  text-shadow: 0 4px 0 rgba(38, 50, 77, 0.25);
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: clamp(16px, 3vw, 22px);
+  color: #fff;
+  margin: 0 0 24px;
+  text-shadow: 0 2px 0 rgba(38, 50, 77, 0.2);
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+
+/* ---------- Плитки тренажёров ---------- */
+
+.trainers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.trainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fff7e0;
+  border: 4px dashed var(--yellow-dark);
+  border-radius: 18px;
+  padding: 18px 20px;
+  text-decoration: none;
+  color: var(--ink);
+  font-size: clamp(19px, 3.4vw, 26px);
+}
+.trainer:hover { background: #fff0c8; }
+.trainer:active { transform: translateY(2px); }
+
+.trainer .emoji {
+  font-size: 1.8em;
+  line-height: 1;
+}
+
+.trainer__text { display: block; }
+
+.trainer__hint {
+  display: block;
+  font-size: clamp(14px, 2.6vw, 17px);
+  color: var(--ink-soft);
+  margin-top: 4px;
+  line-height: 1.4;
+}

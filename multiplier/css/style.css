@@ -53,6 +53,16 @@ body {
   margin: 0 auto;
 }
 
+/* Строка с кнопкой «Домой» — над заголовком страницы */
+.home-row {
+  display: flex;
+  margin-bottom: 10px;
+}
+.home-row .btn--ghost {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
 /* ---------- Заголовки ---------- */
 
 h1 {

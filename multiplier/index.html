@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Таблица умножения — настройки</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="home-row">
+      <a class="btn btn--ghost" href="../index.html">🏠 Домой</a>
+    </div>
+
+    <h1>🐣 Таблица умножения</h1>
+    <p class="subtitle">Настрой тренировку и жми «Старт!»</p>
+
+    <div class="card">
+      <!-- 1. Уровень -->
+      <div class="setting">
+        <span class="setting__label">1️⃣ Уровень</span>
+        <p class="setting__hint">Что нужно будет найти в примере.</p>
+        <div class="choices" id="level-choices">
+          <button type="button" class="choice" data-value="1" aria-pressed="false">
+            Уровень 1
+            <small>7 × 3 = ? — найти ответ</small>
+          </button>
+          <button type="button" class="choice" data-value="2" aria-pressed="false">
+            Уровень 2
+            <small>? × 3 = 21 — найти пропуск</small>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Количество вариантов ответа -->
+      <div class="setting">
+        <span class="setting__label">2️⃣ Варианты ответа</span>
+        <p class="setting__hint">
+          От 0 до 10. Если поставить <b>0</b> — вариантов не будет, ответ нужно вписать самому.
+        </p>
+        <div class="stepper">
+          <button type="button" class="stepper__btn" data-step="options-" aria-label="Меньше">−</button>
+          <input class="stepper__value" id="options-count" type="number" min="0" max="10" step="1" inputmode="numeric">
+          <button type="button" class="stepper__btn" data-step="options+" aria-label="Больше">+</button>
+          <span class="stepper__note" id="options-note"></span>
+        </div>
+      </div>
+
+      <!-- 3. Количество примеров -->
+      <div class="setting">
+        <span class="setting__label">3️⃣ Сколько примеров в тренировке</span>
+        <p class="setting__hint">От 1 до 100 примеров.</p>
+        <div class="stepper">
+          <button type="button" class="stepper__btn" data-step="examples-" aria-label="Меньше">−</button>
+          <input class="stepper__value" id="example-count" type="number" min="1" max="100" step="1" inputmode="numeric">
+          <button type="button" class="stepper__btn" data-step="examples+" aria-label="Больше">+</button>
+          <span class="stepper__note">примеров</span>
+        </div>
+      </div>
+
+      <!-- 4. Фокус на ошибках -->
+      <div class="setting">
+        <span class="setting__label">4️⃣ Работа над ошибками</span>
+        <p class="setting__hint">
+          Примеры, в которых были ошибки, обязательно попадут в новую тренировку.
+        </p>
+        <label class="switch">
+          <input type="checkbox" id="focus-mistakes">
+          <span class="switch__track"></span>
+          <span class="switch__text">Повторять мои ошибки</span>
+        </label>
+        <div class="stepper" style="margin-top:16px">
+          <button type="button" class="stepper__btn" data-step="window-" aria-label="Меньше">−</button>
+          <input class="stepper__value" id="mistake-window" type="number" min="1" max="20" step="1" inputmode="numeric">
+          <button type="button" class="stepper__btn" data-step="window+" aria-label="Больше">+</button>
+          <span class="stepper__note">последних тренировок</span>
+        </div>
+        <p class="setting__hint" id="mistakes-summary" style="margin-top:14px"></p>
+      </div>
+
+      <!-- Доп. настройка -->
+      <div class="setting">
+        <span class="setting__label">➕ Умножение на 1</span>
+        <p class="setting__hint">Самые простые примеры (1 × 5, 7 × 1) можно убрать.</p>
+        <label class="switch">
+          <input type="checkbox" id="include-one">
+          <span class="switch__track"></span>
+          <span class="switch__text">Включать примеры с 1</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="card card--center">
+      <button type="button" class="btn btn--start" id="start-btn">🚀 Старт!</button>
+    </div>
+
+    <div class="card">
+      <a class="mistakes-link" href="mistakes.html" target="_blank" rel="noopener">
+        <span class="emoji">🖨️</span>
+        <span>Открыть все мои ошибки на отдельной странице — можно распечатать и выучить</span>
+      </a>
+    </div>
+
+    <div class="card" id="history-card" hidden>
+      <h2>📈 Последние тренировки</h2>
+      <ul class="history" id="history-list"></ul>
+      <div class="btn-row" style="margin-top:18px">
+        <button type="button" class="btn btn--ghost" id="clear-history">Очистить историю</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/matrix.js"></script>
+  <script src="js/settings-page.js"></script>
+</body>
+</html>
