@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Словарные слова — тренировка</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <!-- ===== Экран тренировки ===== -->
+    <section id="screen-quiz">
+      <div class="topbar">
+        <div class="progress"><div class="progress__bar" id="progress-bar"></div></div>
+        <div class="counter" id="counter">—</div>
+      </div>
+
+      <div class="card">
+        <div class="word" id="word">…</div>
+        <p class="word-hint" id="word-hint"></p>
+
+        <div class="options options--letters" id="options"></div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <div class="help-row">
+          <button type="button" class="btn btn--help" id="help-btn">🆘 Показать слово</button>
+        </div>
+        <div class="help" id="help" hidden>
+          <p class="help__lead">Прочитай слово вслух по слогам и запомни, какие буквы в нём пишутся.</p>
+          <div class="help__word" id="help-word"></div>
+        </div>
+
+        <div class="next-row">
+          <button type="button" class="btn btn--next" id="next-btn" hidden>Далее ➡️</button>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <a class="btn btn--ghost" href="index.html">⚙️ Выйти в настройки</a>
+        <a class="btn btn--ghost" href="../../index.html">🏠 Домой</a>
+      </div>
+    </section>
+
+    <!-- ===== Экран итогов ===== -->
+    <section id="screen-result" hidden>
+      <h1>🎉 Тренировка закончена!</h1>
+
+      <div class="card card--center">
+        <div class="score-emoji" id="result-emoji">🌟</div>
+        <div class="score" id="result-score">0<span class="score__of"> / 0</span></div>
+        <p class="score-text" id="result-text"></p>
+        <div class="btn-row">
+          <button type="button" class="btn btn--start" id="again-btn">🔁 Начать заново</button>
+          <a class="btn btn--violet" href="mistakes.html" target="_blank" rel="noopener">🖨️ Мои ошибки</a>
+        </div>
+        <div class="btn-row" style="margin-top:16px">
+          <a class="btn btn--ghost" href="../../index.html">🏠 Домой</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>📚 Все слова целиком</h2>
+        <p class="setting__hint">
+          Прочитай их вслух — так слова запомнятся лучше.
+          Зелёные — написал сразу, оранжевые — смотрел подсказку, красные — с ошибками.
+        </p>
+        <div class="examples-grid" id="result-grid"></div>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/words-data.js"></script>
+  <script src="js/words.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/session-page.js"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Словарные слова — настройки</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="home-row">
+      <a class="btn btn--ghost" href="../index.html">⬅️ Русский язык</a>
+      <a class="btn btn--ghost" href="../../index.html">🏠 Домой</a>
+    </div>
+
+    <h1>📖 Словарные слова</h1>
+    <p class="subtitle">Настрой тренировку и жми «Старт!»</p>
+
+    <div class="card">
+      <!-- 1. Класс -->
+      <div class="setting">
+        <span class="setting__label">1️⃣ Класс</span>
+        <p class="setting__hint">
+          Можно включить один класс или оба — слова разделятся между ними поровну.
+        </p>
+        <div class="choices" id="grade-choices">
+          <button type="button" class="choice" data-value="2" aria-pressed="false">
+            2 класс
+            <small>Бел..русь, в..р..бей, к..не..но — 43 слова</small>
+          </button>
+          <button type="button" class="choice" data-value="3" aria-pressed="false">
+            3 класс
+            <small>авт..б..с, к..рт..ф..ль, су..б..та — 44 слова</small>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Количество вариантов на пропуск -->
+      <div class="setting">
+        <span class="setting__label">2️⃣ Букв на выбор</span>
+        <p class="setting__hint">
+          Сколько букв показывать для одного пропуска: от 2 до 4. Лишние буквы
+          подбираются похожие — гласная к гласной, согласная к согласной.
+        </p>
+        <div class="stepper">
+          <button type="button" class="stepper__btn" data-step="options-" aria-label="Меньше">−</button>
+          <input class="stepper__value" id="options-count" type="number" min="2" max="4" step="1" inputmode="numeric">
+          <button type="button" class="stepper__btn" data-step="options+" aria-label="Больше">+</button>
+          <span class="stepper__note">букв на пропуск</span>
+        </div>
+      </div>
+
+      <!-- 3. Количество слов -->
+      <div class="setting">
+        <span class="setting__label">3️⃣ Сколько слов в тренировке</span>
+        <p class="setting__hint">От 1 до 40 слов.</p>
+        <div class="stepper">
+          <button type="button" class="stepper__btn" data-step="words-" aria-label="Меньше">−</button>
+          <input class="stepper__value" id="word-count" type="number" min="1" max="40" step="1" inputmode="numeric">
+          <button type="button" class="stepper__btn" data-step="words+" aria-label="Больше">+</button>
+          <span class="stepper__note">слов</span>
+        </div>
+        <p class="spread" id="spread-note"></p>
+      </div>
+
+      <!-- 4. Работа над ошибками -->
+      <div class="setting">
+        <span class="setting__label">4️⃣ Работа над ошибками</span>
+        <p class="setting__hint">
+          Слова, в которых была ошибка, можно подмешивать в новые тренировки —
+          так они быстрее запоминаются. Ещё их можно распечатать и разобрать.
+        </p>
+        <label class="switch">
+          <input type="checkbox" id="focus-mistakes">
+          <span class="switch__track"></span>
+          <span class="switch__text">Повторять мои ошибки</span>
+        </label>
+        <div class="stepper" style="margin-top:16px">
+          <button type="button" class="stepper__btn" data-step="window-" aria-label="Меньше">−</button>
+          <input class="stepper__value" id="mistake-window" type="number" min="1" max="20" step="1" inputmode="numeric">
+          <button type="button" class="stepper__btn" data-step="window+" aria-label="Больше">+</button>
+          <span class="stepper__note">последних тренировок</span>
+        </div>
+        <p class="setting__hint" id="mistakes-summary" style="margin-top:14px"></p>
+      </div>
+    </div>
+
+    <div class="card card--center">
+      <button type="button" class="btn btn--start" id="start-btn">🚀 Старт!</button>
+    </div>
+
+    <div class="card">
+      <a class="mistakes-link" href="mistakes.html" target="_blank" rel="noopener">
+        <span class="emoji">🖨️</span>
+        <span>Открыть все мои ошибки на отдельной странице — можно распечатать и написать слова в тетрадь</span>
+      </a>
+    </div>
+
+    <div class="card" id="history-card" hidden>
+      <h2>📈 Последние тренировки</h2>
+      <ul class="history" id="history-list"></ul>
+      <div class="btn-row" style="margin-top:18px">
+        <button type="button" class="btn btn--ghost" id="clear-history">Очистить историю</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/words-data.js"></script>
+  <script src="js/words.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/settings-page.js"></script>
+</body>
+</html>
