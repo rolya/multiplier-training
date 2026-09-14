@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Безударные гласные — настройки</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="home-row">
+      <a class="btn btn--ghost" href="../index.html">⬅️ Русский язык</a>
+      <a class="btn btn--ghost" href="../../index.html">🏠 Домой</a>
+    </div>
+
+    <h1>🅰️ Безударные гласные в корне</h1>
+    <p class="subtitle">Настрой тренировку и жми «Старт!»</p>
+
+    <div class="card">
+      <p class="rule">
+        <b>Правило.</b> Чтобы проверить безударную гласную в корне, надо изменить
+        слово или подобрать однокоренное так, чтобы на этот гласный падало
+        ударение: <b>поля — по́ле, лесной — лес, пчела — пчёлы</b>.
+        <span class="rule__source" id="rule-source"></span>
+      </p>
+    </div>
+
+    <div class="card">
+      <!-- 1. Количество слов -->
+      <div class="setting">
+        <span class="setting__label">1️⃣ Сколько слов в тренировке</span>
+        <p class="setting__hint">От 1 до 40 слов. Слова берутся случайные и в одной тренировке не повторяются.</p>
+        <div class="stepper">
+          <button type="button" class="stepper__btn" data-step="tasks-" aria-label="Меньше">−</button>
+          <input class="stepper__value" id="task-count" type="number" min="1" max="40" step="1" inputmode="numeric">
+          <button type="button" class="stepper__btn" data-step="tasks+" aria-label="Больше">+</button>
+          <span class="stepper__note">слов</span>
+        </div>
+        <p class="setting__hint" id="pool-note" style="margin:14px 0 0"></p>
+      </div>
+
+      <!-- 2. Работа над ошибками -->
+      <div class="setting">
+        <span class="setting__label">2️⃣ Работа над ошибками</span>
+        <p class="setting__hint">
+          Слова, в которых была ошибка, можно подмешивать в новые тренировки —
+          так они быстрее запоминаются. Ещё их можно распечатать и разобрать.
+        </p>
+        <label class="switch">
+          <input type="checkbox" id="focus-mistakes">
+          <span class="switch__track"></span>
+          <span class="switch__text">Повторять мои ошибки</span>
+        </label>
+        <div class="stepper" style="margin-top:16px">
+          <button type="button" class="stepper__btn" data-step="window-" aria-label="Меньше">−</button>
+          <input class="stepper__value" id="mistake-window" type="number" min="1" max="20" step="1" inputmode="numeric">
+          <button type="button" class="stepper__btn" data-step="window+" aria-label="Больше">+</button>
+          <span class="stepper__note">последних тренировок</span>
+        </div>
+        <p class="setting__hint" id="mistakes-summary" style="margin-top:14px"></p>
+      </div>
+    </div>
+
+    <div class="card card--center">
+      <button type="button" class="btn btn--start" id="start-btn">🚀 Старт!</button>
+    </div>
+
+    <div class="card">
+      <a class="mistakes-link" href="mistakes.html" target="_blank" rel="noopener">
+        <span class="emoji">🖨️</span>
+        <span>Открыть все мои ошибки на отдельной странице — можно распечатать и разобрать слова с проверочными</span>
+      </a>
+    </div>
+
+    <div class="card" id="history-card" hidden>
+      <h2>📈 Последние тренировки</h2>
+      <ul class="history" id="history-list"></ul>
+      <div class="btn-row" style="margin-top:18px">
+        <button type="button" class="btn btn--ghost" id="clear-history">Очистить историю</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/vowels-data.js"></script>
+  <script src="js/vowels.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/settings-page.js"></script>
+</body>
+</html>
