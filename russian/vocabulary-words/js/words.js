@@ -141,6 +141,30 @@ VW.core = (function () {
     return out;
   }
 
+  /**
+   * Слово, разложенное на куски для показа с выделением: обычные части и
+   * буквы из пропусков — те самые, которые нужно запомнить. Нужно странице
+   * повторения: там эти буквы печатаются жирным.
+   *
+   *   'авт..б..с' + ['о','у'] →
+   *     [авт][о*][б][у*][с]   (звёздочкой помечено accent: true)
+   *
+   * Пустые куски пропускаем: у слова «класс» пропуск в конце ('клас..'),
+   * и хвост после него — пустая строка.
+   */
+  function accentParts(task) {
+    var parts = [];
+    function push(text, accent) {
+      if (text) parts.push({ text: text, accent: accent });
+    }
+    push(task.chunks[0], false);
+    for (var i = 1; i < task.chunks.length; i++) {
+      push(task.gaps[i - 1] ? task.gaps[i - 1].answer : '', true);
+      push(task.chunks[i], false);
+    }
+    return parts;
+  }
+
   /** Слово с пропусками для печати и списков: 'авт_б_с' */
   function maskedText(task, placeholder) {
     return fill(task, [], placeholder === undefined ? '_' : placeholder);
@@ -307,6 +331,7 @@ VW.core = (function () {
     mistakesInScope: mistakesInScope,
     optionsFor: optionsFor,
     fill: fill,
+    accentParts: accentParts,
     maskedText: maskedText,
     isCorrect: isCorrect,
     validate: validate

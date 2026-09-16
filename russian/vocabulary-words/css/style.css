@@ -676,3 +676,68 @@ h2 {
   margin: 14px 0 0;
   line-height: 1.45;
 }
+
+/* ---------- Страница «Повторить» ---------- */
+
+/* Кнопка повторения — первое, что видно на странице настроек */
+.review-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #f1ebff;
+  border: 4px dashed var(--violet-dark);
+  border-radius: 18px;
+  padding: 16px 20px;
+  text-decoration: none;
+  color: var(--ink);
+  font-size: clamp(17px, 3vw, 22px);
+}
+.review-link:hover { background: #e7dcff; }
+.review-link .emoji { font-size: 1.7em; }
+
+.review-count {
+  float: right;
+  font-size: 0.55em;
+  color: var(--ink-soft);
+  padding-top: 0.5em;
+}
+
+.review-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  columns: 3 190px;
+  column-gap: 22px;
+}
+
+.review-word {
+  font-size: clamp(20px, 4vw, 26px);
+  letter-spacing: 1px;
+  line-height: 1.6;
+  padding: 4px 0;
+  border-bottom: 3px dotted #e7ecf5;
+  /* Слово не должно разрываться между колонками */
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}
+
+/* Та самая буква, ради которой слово в словаре */
+.review-word__accent {
+  color: var(--red-dark);
+  font-weight: 700;
+}
+
+/* Режим самопроверки: вместо буквы прочерк */
+.review-word__accent--hidden {
+  color: var(--violet);
+  padding: 0 2px;
+}
+
+/* На печати фон не рисуется — заголовок и карточки делаем «бумажными» */
+@media print {
+  .review-word__accent { color: #000; }
+  .review-list { columns: 3 150px; }
+  .wrap h1, .wrap .subtitle { color: var(--ink); text-shadow: none; }
+  .home-row { display: none; }
+  .card { box-shadow: none; padding: 0 0 10px; margin-bottom: 14px; }
+}

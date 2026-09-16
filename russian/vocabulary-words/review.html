@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Словарные слова — повторить</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="home-row">
+      <a class="btn btn--ghost" href="index.html">⬅️ Настройки</a>
+      <a class="btn btn--ghost" href="../index.html">📚 Русский язык</a>
+      <a class="btn btn--ghost" href="../../index.html">🏠 Домой</a>
+    </div>
+
+    <h1>👀 Повторяем слова</h1>
+    <p class="subtitle">Жирным выделены буквы, которые надо запомнить</p>
+
+    <div class="card card--center no-print">
+      <div class="btn-row">
+        <button type="button" class="btn btn--yellow" id="print-btn">🖨️ Распечатать</button>
+        <button type="button" class="btn btn--violet" id="toggle-letters">Спрятать буквы</button>
+      </div>
+      <p class="setting__hint" style="margin:16px 0 0">
+        Спрячь буквы и проверь себя: получится ли вспомнить, какую вставить?
+      </p>
+    </div>
+
+    <div id="grades"></div>
+  </div>
+
+  <script src="js/words-data.js"></script>
+  <script src="js/words.js"></script>
+  <script src="js/review-page.js"></script>
+</body>
+</html>
