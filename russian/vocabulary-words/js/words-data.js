@@ -10,8 +10,12 @@
    Пустая строка '' в options — вариант «нет буквы»: так проверяем удвоенные
    согласные (гру..па → «п» или ничего).
 
+   Четверти задаются отдельными списками (QUARTER_WORDS) ниже — сами записи
+   править не нужно, достаточно вписать слово в список нужной четверти.
+
    Датасет проверяет сам себя: VW.core.validate() подставляет answers в masked
-   и сравнивает с word, а ещё следит, что answers[i] есть в options[i].
+   и сравнивает с word, а ещё следит, что answers[i] есть в options[i] и что
+   все слова из списков четвертей нашлись в своём классе.
    ========================================================================== */
 
 window.VW = window.VW || {};
@@ -116,11 +120,89 @@ VW.data = (function () {
     { word: 'яблоня',    masked: 'ябл..ня',      answers: ['о'],           options: [['о', 'а']] }
   ];
 
+  /* --- Четверти --------------------------------------------------------- */
+  /* Слова учитель даёт четвертями. Ниже — списки слов по четвертям: вписал
+     слово в нужный список, и оно появилось в этой четверти и в тренировке,
+     и на странице повторения.
+     Всё, что ни в один список не попало, идёт в категорию «остальные» (0).
+     Во 2 классе разбивки по четвертям нет — там все слова «остальные». */
+
+  var OTHER = 0;
+
+  var QUARTER_WORDS = {
+    2: {},
+    3: {
+      1: [
+        'болото', 'девочка', 'яблоня', 'собака', 'телевизор', 'картина',
+        'коридор', 'корзина', 'крапива', 'урожай', 'ветер', 'товарищ', 'пальто'
+      ]
+    }
+  };
+
+  /* Слова, которых нет в классе, — собираем и показываем в validate(),
+     чтобы опечатка в списке четверти не осталась незамеченной. */
+  var QUARTER_PROBLEMS = [];
+
+  /** Проставить entry.quarter по спискам четвертей */
+  function applyQuarters(grade, list) {
+    list.forEach(function (entry) { entry.quarter = OTHER; });
+
+    var byQuarter = QUARTER_WORDS[grade] || {};
+    Object.keys(byQuarter).forEach(function (key) {
+      var id = parseInt(key, 10);
+      (byQuarter[key] || []).forEach(function (word) {
+        var found = false;
+        list.forEach(function (entry) {
+          if (entry.word === word) {
+            entry.quarter = id;
+            found = true;
+          }
+        });
+        if (!found) {
+          QUARTER_PROBLEMS.push(grade + ' класс, ' + id + ' четверть: слова «' +
+            word + '» нет в списке класса');
+        }
+      });
+    });
+  }
+
+  applyQuarters(2, GRADE_2);
+  applyQuarters(3, GRADE_3);
+
+  function quarterLabel(id) {
+    return id === OTHER ? 'Остальные слова' : id + ' четверть';
+  }
+
+  /** Четверти, в которых реально есть слова: по возрастанию, «остальные» — в конце */
+  function quartersWithWords(list) {
+    var seen = {};
+    list.forEach(function (entry) { seen[entry.quarter] = true; });
+    return Object.keys(seen)
+      .map(function (key) { return parseInt(key, 10); })
+      .sort(function (a, b) {
+        if (a === OTHER) return 1;
+        if (b === OTHER) return -1;
+        return a - b;
+      });
+  }
+
+  var BY_GRADE = { 2: GRADE_2, 3: GRADE_3 };
+
   return {
     GAP: GAP,
     GRADES: [2, 3],
-    BY_GRADE: { 2: GRADE_2, 3: GRADE_3 },
+    BY_GRADE: BY_GRADE,
     GRADE_2: GRADE_2,
-    GRADE_3: GRADE_3
+    GRADE_3: GRADE_3,
+
+    OTHER_QUARTER: OTHER,
+    QUARTER_PROBLEMS: QUARTER_PROBLEMS,
+    quarterLabel: quarterLabel,
+    /** Все четверти, которые есть хоть в одном классе — для выбора в настройках */
+    QUARTERS: quartersWithWords(GRADE_2.concat(GRADE_3)),
+    /** Четверти внутри одного класса — для страницы повторения */
+    quartersOfGrade: function (grade) {
+      return quartersWithWords(BY_GRADE[grade] || []);
+    }
   };
 })();

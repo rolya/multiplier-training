@@ -3,48 +3,32 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Словарные слова — настройки</title>
+  <title>Слоўнікавыя словы — настройки</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="wrap">
     <div class="home-row">
-      <a class="btn btn--ghost" href="../index.html">⬅️ Русский язык</a>
+      <a class="btn btn--ghost" href="../index.html">⬅️ Беларуская мова</a>
       <a class="btn btn--ghost" href="../../index.html">🏠 Домой</a>
     </div>
 
-    <h1>📖 Словарные слова</h1>
+    <h1>📗 Слоўнікавыя словы</h1>
     <p class="subtitle">Настрой тренировку и жми «Старт!»</p>
 
     <div class="card">
       <a class="review-link" href="review.html">
         <span class="emoji">👀</span>
-        <span>Повторить — все словарные слова по классам и четвертям, нужные буквы выделены жирным</span>
+        <span>Повторить — все слоўнікавыя словы по четвертям, с ударением и нужными буквами жирным</span>
       </a>
     </div>
 
     <div class="card">
-      <!-- 1. Класс -->
-      <div class="setting">
-        <span class="setting__label">1️⃣ Класс</span>
-        <p class="setting__hint">
-          Можно включить один класс или оба — слова разделятся между ними поровну.
-        </p>
-        <div class="choices" id="grade-choices">
-          <button type="button" class="choice" data-value="2" aria-pressed="false">
-            2 класс
-            <small>Бел..русь, в..р..бей, к..не..но — 43 слова</small>
-          </button>
-          <button type="button" class="choice" data-value="3" aria-pressed="false">
-            3 класс
-            <small>авт..б..с, к..рт..ф..ль, су..б..та — 44 слова</small>
-          </button>
-        </div>
-      </div>
+      <!-- Класса здесь нет: беларускія словы пока только за 3 класс -->
 
-      <!-- 2. Четверть -->
+      <!-- 1. Четверть -->
       <div class="setting">
-        <span class="setting__label">2️⃣ Четверть</span>
+        <span class="setting__label">1️⃣ Четверть</span>
         <p class="setting__hint">
           Можно тренировать слова одной четверти или все сразу. Слова, которые
           учитель ещё не разбил по четвертям, лежат в «Остальных».
@@ -53,9 +37,9 @@
         <div class="choices choices--one" id="quarter-choices"></div>
       </div>
 
-      <!-- 3. Количество вариантов на пропуск -->
+      <!-- 2. Количество вариантов на пропуск -->
       <div class="setting">
-        <span class="setting__label">3️⃣ Букв на выбор</span>
+        <span class="setting__label">2️⃣ Букв на выбор</span>
         <p class="setting__hint">
           Сколько букв показывать для одного пропуска: от 2 до 4. Лишние буквы
           подбираются похожие — гласная к гласной, согласная к согласной.
@@ -68,9 +52,9 @@
         </div>
       </div>
 
-      <!-- 4. Количество слов -->
+      <!-- 3. Количество слов -->
       <div class="setting">
-        <span class="setting__label">4️⃣ Сколько слов в тренировке</span>
+        <span class="setting__label">3️⃣ Сколько слов в тренировке</span>
         <p class="setting__hint">От 1 до 40 слов.</p>
         <div class="stepper">
           <button type="button" class="stepper__btn" data-step="words-" aria-label="Меньше">−</button>
@@ -81,9 +65,9 @@
         <p class="spread" id="spread-note"></p>
       </div>
 
-      <!-- 5. Работа над ошибками -->
+      <!-- 4. Работа над ошибками -->
       <div class="setting">
-        <span class="setting__label">5️⃣ Работа над ошибками</span>
+        <span class="setting__label">4️⃣ Работа над ошибками</span>
         <p class="setting__hint">
           Слова, в которых была ошибка, можно подмешивать в новые тренировки —
           так они быстрее запоминаются. Ещё их можно распечатать и разобрать.

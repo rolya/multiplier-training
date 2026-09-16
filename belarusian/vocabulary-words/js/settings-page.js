@@ -1,5 +1,7 @@
 /* ==========================================================================
-   settings-page.js — настройки тренажёра «Словарные слова» (index.html)
+   settings-page.js — настройки тренажёра «Слоўнікавыя словы» (index.html)
+   Копия настроек русского тренажёра без выбора класса: беларускія словы
+   пока только за 3 класс, поэтому плитки классов на странице нет.
    ========================================================================== */
 
 (function () {
@@ -8,6 +10,7 @@
   var LIMITS = store.LIMITS;
   var settings = store.getSettings();
 
+  // Плиток классов на странице нет (класс один) — список пустой, циклы по нему молчат
   var gradeChoices = document.querySelectorAll('#grade-choices .choice');
   var quarterChoices = document.getElementById('quarter-choices');
   var optionsInput = document.getElementById('options-count');
@@ -64,27 +67,22 @@
       var value = quarterOf(btn);
       btn.setAttribute('aria-pressed', value === settings.quarter ? 'true' : 'false');
       var n = core.count(settings.grades, value);
-      btn.querySelector('small').textContent = n
-        ? n + ' ' + wordForm(n) + ' в выбранных классах'
-        : 'в выбранных классах пусто';
+      btn.querySelector('small').textContent = n ? n + ' ' + wordForm(n) : 'слов нет';
     });
   }
 
   /**
-   * Сколько слов достанется каждому классу — считаем тем же кодом, что и сессия.
-   * Заодно следим за пустым набором: в 1 четверти есть слова только 3 класса,
-   * так что «2 класс + 1 четверть» дал бы тренировку без слов — в таком случае
-   * говорим об этом и выключаем «Старт».
+   * Сколько слов есть для тренировки — считаем тем же кодом, что и сессия.
+   * Если в выбранной четверти слов нет, говорим об этом и выключаем «Старт».
    */
   function renderSpread() {
     var available = core.count(settings.grades, settings.quarter);
     var where = settings.quarter === core.ALL_QUARTERS
-      ? 'в выбранных классах'
-      : 'в выбранных классах (' + core.quarterLabel(settings.quarter).toLowerCase() + ')';
+      ? 'Всего слов'
+      : 'Слов в этой четверти (' + core.quarterLabel(settings.quarter).toLowerCase() + ')';
 
     if (!available) {
-      spreadNote.textContent = 'Для этой четверти в выбранных классах слов нет — ' +
-        'включи другой класс или выбери другую четверть.';
+      spreadNote.textContent = 'В этой четверти слов пока нет — выбери другую четверть.';
       spreadNote.classList.add('spread--warn');
       startBtn.disabled = true;
       return;
@@ -93,21 +91,12 @@
     spreadNote.classList.remove('spread--warn');
     startBtn.disabled = false;
 
-    // Класс, в котором для этой четверти слов нет, в раскладке не показываем:
-    // его долю сессия всё равно доберёт из другого класса
-    var grades = settings.grades.filter(function (grade) {
-      return core.count([grade], settings.quarter) > 0;
-    });
-    var counts = core.spread(settings.wordCount, grades.length);
-    var parts = grades.map(function (grade, i) {
-      return grade + ' класс — ' + counts[i];
-    });
-    spreadNote.textContent = settings.wordCount + ' ' + wordForm(settings.wordCount) +
-      ': ' + parts.join(', ') + '. Всего слов ' + where + ': ' + available + '.';
+    spreadNote.textContent = 'В тренировке ' + settings.wordCount + ' ' +
+      wordForm(settings.wordCount) + '. ' + where + ': ' + available + '.';
   }
 
   /* Считаем только те ошибки, которые действительно попадут в тренировку при
-     выбранных классах и четверти — тем же кодом, что и сессия. Иначе в режиме 2 класса
+     выбранной четверти — тем же кодом, что и сессия. Иначе в режиме 2 класса
      подпись обещала бы повторить слова 3 класса, которых в тренировке не будет. */
   function renderMistakesSummary() {
     var all = store.getRecentMistakes(settings.mistakeWindow);
@@ -121,7 +110,7 @@
 
     if (!mine.length) {
       mistakesSummary.textContent = 'Сохранённых ошибок: ' + all.length +
-        ' — но все они из другого класса или четверти, в эту тренировку не попадут.';
+        ' — но все они из другой четверти, в эту тренировку не попадут.';
       return;
     }
 
@@ -130,7 +119,7 @@
     }).join(', ');
     mistakesSummary.textContent = 'Слов для повторения: ' + mine.length +
       ' (' + preview + (mine.length > 6 ? '…' : '') + ')' +
-      (other > 0 ? '. Ещё ' + other + ' — из другого класса или четверти, не попадут.' : '');
+      (other > 0 ? '. Ещё ' + other + ' — из другой четверти, не попадут.' : '');
   }
 
   function renderHistory() {
@@ -149,9 +138,7 @@
         ? ''
         : date.toLocaleDateString('ru-RU') + ' ' +
           date.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
-      var grades = Array.isArray(session.grades) && session.grades.length
-        ? ' (' + session.grades.join(' и ') + ' класс)'
-        : '';
+      var grades = '';   // класс один, в истории его не пишем
       var helped = parseInt(session.helped, 10);
       var li = document.createElement('li');
       li.textContent = when + grades + ' — ' + session.correct + ' из ' + session.total +

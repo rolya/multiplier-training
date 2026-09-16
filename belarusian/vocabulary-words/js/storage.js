@@ -1,18 +1,19 @@
 /* ==========================================================================
-   storage.js — настройки и история сессий тренажёра «Словарные слова»
-   Глобальный объект VW.store (свои ключи, не пересекается с другими тренажёрами)
+   storage.js — настройки и история сессий тренажёра «Слоўнікавыя словы»
+   Глобальный объект VW.store. Ключи свои (bw.*): беларускія словы считаются
+   отдельно от русских словарных слов, история и ошибки не перемешиваются.
    ========================================================================== */
 
 window.VW = window.VW || {};
 
 VW.store = (function () {
-  var SETTINGS_KEY = 'vw.settings.v1';
-  var HISTORY_KEY = 'vw.history.v1';
+  var SETTINGS_KEY = 'bw.settings.v1';
+  var HISTORY_KEY = 'bw.history.v1';
 
-  var ALL_GRADES = [2, 3];
+  var ALL_GRADES = [3];   // пока только 3 класс
 
   var DEFAULTS = {
-    grades: [3],          // какие классы берём — можно один или оба
+    grades: [3],          // класс пока один
     quarter: 'all',       // 'all' — все четверти, иначе id четверти (0 — остальные)
     optionsCount: 3,      // сколько букв показывать на один пропуск
     wordCount: 10,        // слов в тренировке
@@ -54,7 +55,7 @@ VW.store = (function () {
     return Math.min(max, Math.max(min, n));
   }
 
-  /** Классы: только 2 и 3, без повторов, по возрастанию, хотя бы один */
+  /** Класс: берём только те, что есть в датасете; хотя бы один */
   function normalizeGrades(raw) {
     if (!Array.isArray(raw)) return DEFAULTS.grades.slice();
     var picked = ALL_GRADES.filter(function (grade) {
